@@ -1,0 +1,28 @@
+<ul class="list-none pl-0 m-0">
+  <li *ngFor="let cat of categories" class="my-1">
+    <div class="flex items-center gap-2 cursor-pointer">
+      <!-- Checkbox -->
+      <input type="checkbox"
+             class="cursor-pointer"
+             [checked]="cat.selected"
+             (change)="toggleSelection(cat, $event)" />  
+
+      <!-- Category Name -->
+      <span class="flex-1 text-xx" (click)="toggleExpand(cat)">{{ cat.name }}</span>
+
+      <!-- Count -->
+      <span class="text-gray-500 text-xx">
+        ({{ cat.children?.length || 0 }})
+      </span>
+    </div>
+
+    <!-- Recursive Children -->
+    <ul *ngIf="cat.expanded && cat.children?.length" class="ml-6">
+       <app-category-tree
+    
+      [categories]="cat.children"
+      (categorySelected)="categorySelected.emit($event)">
+    </app-category-tree>
+    </ul>
+  </li>
+</ul>

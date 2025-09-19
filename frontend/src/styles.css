@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+.tailwind-dialog-panel { 
+  position: fixed !important;           /* ensures it’s viewport-relative */
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;  /* center it */
+  z-index: 9999 !important;             /* above footer */
+  padding: 0 !important;
+  max-height: 90vh;                     /* scrollable if content grows */
+  overflow: auto;
+  border-radius: 0.75rem;               /* Tailwind rounded-xl */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+}
+/* Force paginator controls to stay on the same line */
+::ng-deep .mat-paginator {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+/* Optional: adjust spacing for page size dropdown */
+::ng-deep .mat-paginator-page-size {
+  margin-right: 1rem; /* adjust spacing between dropdown and buttons */
+}
+
+/* Optional: make page buttons smaller and aligned */
+::ng-deep .mat-paginator-navigation-previous,
+::ng-deep .mat-paginator-navigation-next {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+.category-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.category-list li {
+  margin: 4px 0;
+}

@@ -1,0 +1,89 @@
+<div class="p-6">
+  <h2 class="text-xl font-bold">Manage Brands</h2>
+<div *ngIf="!isUpdate">
+  <form  (ngSubmit)="addBrands()" class=" my-4 border p-2">
+    <div class="flex-col  mb-4">
+        <input name="name" placeholder="Brand name" [(ngModel)]="newBrand" class=" w-64 border p-2 mr-5 " />
+    <!-- </div>  
+    <div class="flex-col"> -->
+        <button class="bg-violet-900 text-white px-4 py-2 rounded" type="submit">Add Brand</button>
+    </div>
+  </form> 
+  </div>
+  <div *ngIf="isUpdate">
+    <form  (ngSubmit)="saveUpdateBrand()" class=" my-4 border p-2">
+    <div class="flex-col  mb-4">
+      <input [(ngModel)] = "brandId" type="hidden" name="bid"/>
+        <input name="name" placeholder="Brand name" [(ngModel)]="newBrand" class=" w-64 border p-2 mr-5 " />
+    <!-- </div>  
+    <div class="flex-col"> -->
+        <button class="bg-violet-900 text-white px-4 py-2 rounded" type="submit">Update Brand</button>
+    </div>
+  </form> 
+  </div>
+     <!-- Error Message -->
+        <div
+          class="relative mt-4 max-w-sm mx-auto p-3 rounded-lg text-sm font-medium border transition-opacity duration-1000"
+          [ngClass]="{
+            'opacity-100': showErrorBox,
+            'opacity-0': !showErrorBox,
+            'text-red-700 bg-red-100 border-red-300': messageType === 'error',
+            'text-green-700 bg-green-100 border-green-300': messageType === 'success'
+          }"
+        >
+          {{ errorMessage }}
+
+          <!-- Close Button -->
+          <button
+            (click)="closeMessage()"
+            class="absolute top-2 right-2 font-bold"
+            [ngClass]="{
+              'text-red-500 hover:text-red-700': messageType === 'error',
+              'text-green-500 hover:text-green-700': messageType === 'success'
+            }"
+          >
+            ✕
+          </button>
+        </div>
+<div>
+  <h2 class="text-xl font-bold mb-4">Brands Overview</h2>
+
+
+<div class="overflow-x-auto p-4">
+  <table class="min-w-full border border-gray-400 text-sm text-left rounded-lg ">
+    <thead class="bg-gray-200 text-gray-700 uppercase border-gray-400 text-xs">
+      <tr>
+        <th class="px-6 py-3 border-b">Name</th>
+        <th class="px-6 py-3 border-b text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-400">
+      <tr *ngFor="let brand of pagedBrands; trackBy: trackByBrandsId">
+        <td class="px-6 py-4">{{ brand.name }}</td>
+        <td class="px-6 py-4 text-center">
+          <button (click)="updateBrand(brand)" class="px-3 py-1 bg-violet-900 text-white rounded hover:bg-blue-600">
+            Edit
+          </button>
+          <button (click)="deleteBrands(brand)" class="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-4 flex justify-end">
+  <mat-paginator
+    [length]="brands.length"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)"
+    class="!rounded-lg !px-4 !py-2 !text-gray-700"
+    aria-label="Select page">
+  </mat-paginator>
+</div>
+
+</div>
+</div>

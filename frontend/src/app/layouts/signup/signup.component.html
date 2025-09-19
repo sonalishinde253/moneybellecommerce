@@ -1,0 +1,183 @@
+<section class="mx-auto mt-10 w-full flex-grow mb-10 max-w-[1200px] px-5">
+    <div class="container mx-auto border px-5 py-5 shadow-sm md:w-1/2">
+        <p class="text-3xl font-bold justify-center items-center">CREATE AN ACCOUNT</p>
+
+        <form 
+            [formGroup]="signupForm"
+            (ngSubmit) = "onSubmit()"
+            class="mt-6 flex flex-col" novalidate>
+            <label>Full Name</label>
+            <input type="text" 
+                formControlName="fullName" 
+                class="mt-2 mb-3 border py-2 px-4" 
+                placeholder="full name"
+                required/>
+                  <small class="text-red-500"
+                   *ngIf="signupForm.get('fullName')?.touched 
+                    && signupForm.get('fullName')?.invalid">
+                    <span *ngIf="signupForm.get('fullName')?.errors?.['required']">
+                        Full Name is required.</span>
+                  </small>
+                
+            <label>Email</label>
+            <input type="text" 
+                formControlName="email" 
+                class="mt-2 mb-3 border py-2 px-4" 
+                placeholder="Email"
+                required/>
+                <small class="text-red-500" 
+                    *ngIf="signupForm.get('email')?.touched 
+                    && signupForm.get('email')?.invalid">
+                    <span *ngIf="signupForm.get('email')?.errors?.['required']">
+                        Email is required.</span>
+                     <span *ngIf="signupForm.get('email')?.errors?.['email']">Enter a valid email address.</span>
+                </small>
+            <label>User Name</label>
+            <input type="text" 
+                formControlName="username"
+                class="mt-2 mb-3 border py-2 px-4" 
+                placeholder="username" 
+                required/>
+                <small class="text-red-500"
+                   *ngIf="signupForm.get('username')?.touched 
+                    && signupForm.get('username')?.invalid">
+                    <span *ngIf="signupForm.get('username')?.errors?.['required']">
+                        Username is required.</span>
+                  </small>
+            <label>Mobile</label>
+            <input type="text" 
+                formControlName="mobile" 
+                class="mt-2 mb-3 border py-2 px-4" 
+                placeholder="mobile"
+                required/>
+                <small class="text-red-500"
+                   *ngIf="signupForm.get('mobile')?.touched 
+                    && signupForm.get('mobile')?.invalid">
+                    <span *ngIf="signupForm.get('mobile')?.errors?.['required']">
+                        Mobile is required.</span>
+                    <span *ngIf="signupForm.get('mobile')?.errors?.['pattern']">Enter a valid 10-digit mobile number.</span>
+    
+                  </small>
+                  <label>Password</label>
+                 <div class="relative w-full">
+            
+                <input id="password"
+                    class="w-full mt-3 px-4 py-2 pr-10 border "
+                    [type]="showPassword ? 'text' : 'password'"
+                    formControlName="password"
+                    required
+                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;"/>
+                   <button
+                        type="button"
+                        (click)="togglePassword()"
+                         class="absolute inset-y-0 right-0 flex items-center pr-3 mt-2 text-gray-500 hover:text-gray-700"
+                    >
+                        <!-- Eye icon -->
+          <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 
+                2.943 9.542 7-1.274 4.057-5.065 7-9.542 
+                7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+
+          <!-- Eye-slash icon -->
+          <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7
+                a9.97 9.97 0 012.641-4.362M6.1 6.1A9.969 
+                9.969 0 0112 5c4.477 0 8.268 2.943 
+                9.542 7a9.97 9.97 0 01-4.024 
+                5.385M15 12a3 3 0 00-3-3m0 0a3 
+                3 0 013 3m-3-3l-9 9" />
+          </svg>
+
+                    </button>
+                    </div>
+                    <small class="text-red-500"
+                   *ngIf="signupForm.get('password')?.touched 
+                    && signupForm.get('password')?.invalid">
+                        <small *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</small>
+                        <small *ngIf="signupForm.get('password')?.errors?.['minlength']">Minimum 8 characters</small>
+                        <small *ngIf="signupForm.get('password')?.errors?.['weakPassword']">
+                        Must contain uppercase, lowercase, number, special char
+                        </small>
+                    </small>
+                     <label>Confirm Password</label>
+                    <div class="relative w-full">
+            
+                       
+                        <input id="confirmPassword"
+                                class="w-full mt-3 px-4 py-2 pr-10 border "
+                                [type]="showConfirmPassword ? 'text' : 'password'"
+                                formControlName="confirmPassword"
+                                required
+                                placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;"/>
+                         <button type="button"
+                                (click)="toggleConfirmPassword()"
+                                class="absolute inset-y-0 right-0 flex items-center pr-3 mt-2 text-gray-500 hover:text-gray-700"
+                    >
+                            <!-- Eye icon -->
+          <svg *ngIf="!showConfirmPassword" xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 
+                2.943 9.542 7-1.274 4.057-5.065 7-9.542 
+                7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+
+          <!-- Eye-slash icon -->
+          <svg *ngIf="showConfirmPassword" xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7
+                a9.97 9.97 0 012.641-4.362M6.1 6.1A9.969 
+                9.969 0 0112 5c4.477 0 8.268 2.943 
+                9.542 7a9.97 9.97 0 01-4.024 
+                5.385M15 12a3 3 0 00-3-3m0 0a3 
+                3 0 013 3m-3-3l-9 9" />
+          </svg>
+                    </button>
+                       
+                    </div>
+                     <small class="text-red-500"
+                        *ngIf="signupForm.get('confirmPassword')?.touched 
+                            && signupForm.get('confirmPassword')?.invalid">
+                            <small *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">
+                                Password is required</small>                        
+                            <small *ngIf="signupForm.get('confirmPassword')?.errors?.['mismatch']">
+                                <small>Passwords do not match</small>
+                            </small>
+                        </small>
+            <div class="mt-4 flex justify-between">
+            <form class="flex gap-2">
+                <input type="checkbox" id="terms"  formControlName="termsAndCondition" />
+                <label for="checkbox">
+                I have read and agree with
+                <a href="#" class="text-violet-900">terms &amp; conditions</a>
+                </label>
+                     <small class="text-red-500" *ngIf="signupForm.get('termsAndCondition')?.touched
+                            && signupForm.get('termsAndCondition')?.invalid">
+                        <small>You must accept the terms and conditions.</small>
+                </small>
+                <br />
+                 
+            </form>
+           
+            </div>
+            <button type="submit" class="my-5 w-full py-2 bg-violet-900 text-white">
+                CREATE ACCOUNT
+            </button>
+        </form>
+      
+        <p class="text-center">
+            Already have an account?
+            <button (click)="login()" class="text-violet-900 cursor-pointer">Login</button>
+        </p>
+    </div>
+</section>

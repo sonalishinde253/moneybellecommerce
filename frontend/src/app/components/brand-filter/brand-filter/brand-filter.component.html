@@ -1,0 +1,11 @@
+<ul>
+  <li *ngFor="let brand of brands" class="ml-2">
+    <label class="flex items-center gap-2">
+      <input
+        type="checkbox"
+        [checked]="brand.selected"
+        (change)="toggleBrand(brand, $event)" />
+      {{ brand.name }}
+    </label>
+  </li>
+</ul>

@@ -1,0 +1,32 @@
+<div class="p-6">
+  <h2 class="text-xl font-bold">Manage Categories</h2>
+
+  <form (ngSubmit)="addCategory()" class=" my-4 border p-2">
+    <div class="flex-col  mb-4">
+      <input [(ngModel)]="newCategory.name" name="name" placeholder="Category name" class=" w-64 border p-2" />
+    </div>
+    <div class="flex-col ">
+        <div *ngFor="let level of levels; let i = index" class="mb-4">
+            <select [(ngModel)]="level.selected"
+                (change)="onSelect(i)"
+                [ngModelOptions]="{standalone: true}"
+                name="parent"
+                class="border p-2 w-64">
+                <option value="">-- Select Category --</option>
+                <option *ngFor="let c of level.options" [value]="c._id">{{ c.name }}</option>
+            </select>
+        </div>        
+     </div>
+         <!-- <select [(ngModel)]="newCategory.parent" name="parent" class="border p-2">
+      <option value="">Select Root Category </option>
+      <option *ngFor="let c of categories" [value]="c._id">{{ c.name }}</option>
+    </select> -->
+    <div class="flex-col">
+    <button class="bg-violet-900 text-white px-4 py-2 rounded">Add Category</button>
+    </div>
+  </form>
+    <div>
+        <h2 class="text-xl font-bold">List of Categories </h2>
+     <app-category-tree [categories]="categoryTree"></app-category-tree>
+    </div>
+</div>

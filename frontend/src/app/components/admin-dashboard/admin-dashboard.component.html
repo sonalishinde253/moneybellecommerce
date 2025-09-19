@@ -1,0 +1,37 @@
+<div class="bg-gray-100 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-violet-900 text-white flex flex-col p-6">
+    <h2 class="text-2xl font-bold mb-8">Admin Dashboard</h2>
+       <ul class="space-y-2">
+      <li class="bg-amber-400 p-3 text-black text-xl font-bold rounded-lg">
+        <a routerLink="/admin-dashboard/overview">Overview</a>
+      </li>
+      <li class="bg-amber-400 p-3 text-black text-xl font-bold rounded-lg">
+        <a routerLink="/admin-dashboard/accounts-overview">Accounts Overview</a>
+      </li>
+      <li class="bg-amber-400 p-3 text-black text-xl font-bold rounded-lg">
+        <a routerLink="/admin-dashboard/orders-overview">Orders Overview</a>
+      </li>
+      <li class="bg-amber-400 p-3 text-black text-xl font-bold rounded-lg">
+        <a routerLink="/admin-dashboard/products-overview">Products Overview</a>
+      </li>
+        <li class="bg-amber-400 p-3 text-black text-xl font-bold rounded-lg">
+        <a routerLink="/admin-dashboard/category-overview">Category Overview</a>
+      </li>
+       <li class="bg-amber-400 p-3 text-black text-xl font-bold rounded-lg">
+        <a routerLink="/admin-dashboard/brands-overview">Brands Overview</a>
+      </li>
+      
+      <li class="bg-red-500 p-3 text-white text-xl text-center font-bold rounded-lg">
+        <a (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </aside>
+  <!-- Main Content -->
+  <main class="flex-grow p-4 overflow-auto">
+    <router-outlet></router-outlet>
+    <div class="mt-4"></div>
+    <div class="mt-4"></div>
+  </main>
+</div>

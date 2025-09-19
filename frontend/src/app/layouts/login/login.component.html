@@ -1,0 +1,123 @@
+<!-- Login card  -->
+<section class="mx-auto flex-grow w-full mt-10 mb-10 max-w-[1200px] px-5">
+  <div class="container mx-auto border px-5 py-5 shadow-sm md:w-1/2">
+    <div class="">
+      <p class="text-4xl font-bold">LOGIN</p>
+    </div>
+   <!-- Error Message -->
+        <div
+          *ngIf="showErrorBox"
+          class="relative mt-4 max-w-sm mx-auto p-3 rounded-lg text-sm font-medium text-red-700 bg-red-100 border border-red-300
+                transition-opacity duration-1000"
+          [ngClass]="{ 'opacity-100': showErrorBox, 'opacity-0': !showErrorBox }"
+        >
+          {{ errorMessage }}
+
+          <!-- Close Button -->
+          <button
+            (click)="closeError()"
+            class="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold"
+          >
+            ✕
+          </button>
+        </div>
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="mt-6 flex flex-col">
+      
+      <label for="email">Email</label>
+          <input
+            id="email"
+            formControlName="email"
+            class=" mb-3 mt-3 px-4 py-2 border"
+            type="text"
+            placeholder="Email"
+            required
+          />
+        <small class="text-red-500" 
+                *ngIf="loginForm.get('email')?.touched 
+                && loginForm.get('email')?.invalid">
+                <span *ngIf="loginForm.get('email')?.errors?.['required']">
+                    Email is required.</span>
+                  <span *ngIf="loginForm.get('email')?.errors?.['email']">Enter a valid email address.</span>
+            </small>
+      <label for="password">Password</label>
+     <div class="relative w-full">
+      <!-- Password input -->
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Enter password"
+          class="w-full mt-3 px-4 py-2 pr-10 border "
+        />
+
+      <!-- Eye toggle button -->
+      <button
+        type="button"
+        (click)="togglePassword()"
+        class="absolute inset-y-0 right-0 flex items-center pr-3 mt-2 text-gray-500 hover:text-gray-700"
+        >
+          <!-- Eye icon -->
+          <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 
+                2.943 9.542 7-1.274 4.057-5.065 7-9.542 
+                7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+
+          <!-- Eye-slash icon -->
+          <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7
+                a9.97 9.97 0 012.641-4.362M6.1 6.1A9.969 
+                9.969 0 0112 5c4.477 0 8.268 2.943 
+                9.542 7a9.97 9.97 0 01-4.024 
+                5.385M15 12a3 3 0 00-3-3m0 0a3 
+                3 0 013 3m-3-3l-9 9" />
+          </svg>
+        </button>
+      </div>
+        <small class="text-red-500"
+          *ngIf="loginForm.get('password')?.touched 
+          && loginForm.get('password')?.invalid">
+              <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</small>
+              <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Minimum 8 characters</small>
+              <small *ngIf="loginForm.get('password')?.errors?.['weakPassword']">
+              Must contain uppercase, lowercase, number, special char
+              </small>
+          </small>
+      <button type="submit" class="my-5 w-full bg-violet-900 py-2 text-white">
+        LOGIN
+      </button>
+    </form>
+    <div class="mt-4 flex justify-between">
+      <form class="flex gap-2">
+        <input type="checkbox" formControlName="rememberMe"/>
+        <label for="checkbox">Remember me</label>
+      </form>
+        <button (click)="forgotPassword()"
+              class="cursor-pointer text-violet-900">
+              Forgot Password
+    </button>
+        </div>
+
+    <p class="text-center text-gray-500">or </p>
+    <p class="text-center text-gray-500">Login With</p>
+
+    <div class="my-5 flex gap-2">
+      <button class="w-1/2 bg-blue-800 py-2 text-white">Facebook</button>
+      <button class="w-1/2 bg-orange-500 py-2 text-white">Google</button>
+    </div>
+
+    <p class="text-center">
+      Don`t have account?
+      <button (click)="signup()" class="text-violet-900">Register</button>
+    </p>
+  </div>
+</section>
+<!-- /Login Card  -->

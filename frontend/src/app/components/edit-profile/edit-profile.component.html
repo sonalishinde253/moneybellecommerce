@@ -1,0 +1,145 @@
+<div *ngIf="isLoading">
+<app-loading-spinner></app-loading-spinner>
+</div>
+<section
+  class="container flex-grow mx-auto max-w-[1200px] border-b py-5 lg:flex lg:flex-row lg:py-10"
+>
+  <app-sidebar [userInfo]="userInfo"></app-sidebar>
+  <!-- form  -->
+  <section class="container mx-auto my-3 flex w-full flex-col gap-3 px-4">
+    <div class="py-5 w-full">
+      <div class="w-full">
+            <div
+          *ngIf="showErrorBox"
+          class="relative w-full mt-4 mx-auto p-3 rounded-lg text-sm font-medium text-red-700 bg-red-100 border border-red-300
+                transition-opacity duration-1000"
+          [ngClass]="{ 'opacity-100': showErrorBox, 'opacity-0': !showErrorBox }"
+        >
+          {{ errorMessage }}
+
+          <!-- Close Button -->
+           <button
+            (click)="closeError()"
+            class="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold"
+          >
+            ✕
+          </button> 
+        </div>
+        <div
+          class="mx-auto mb-5 flex flex-row items-center bg-neutral-100 py-5 lg:mx-0 lg:w-1/2"
+        >
+          <img
+            class="ml-5 h-20 w-20 rounded-full"
+            [src]="userInfo.image"
+            [alt]="userForm.get('fullName')?.value"
+          />
+
+          <form>
+            <div>
+              <label class="block">
+                <span class="sr-only">Choose profile photo</span>
+                <input
+                  type="file"
+                  class="mx-auto ml-5 flex w-full justify-center border-yellow-400 text-sm outline-none file:mr-4 file:bg-amber-400 file:py-2 file:px-4 file:text-sm file:font-semibold"
+                  (change)="onFileChange($event)"
+                />
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <form
+        [formGroup]="userForm"
+        (ngSubmit)="onSubmit()"
+        class="flex w-full flex-col gap-3"
+      >
+        <div class="flex w-full flex-col">
+          <label class="flex" for="fullName"
+            >Full Name<span
+              class="block text-sm font-medium text-slate-700 after:ml-0.5 after:text-red-500 after:content-['*']"
+            ></span
+          ></label>
+          <input
+            formControlName="fullName"
+            class="w-full border px-4 py-2 lg:w-1/2"
+            type="text"
+            placeholder="Sarah"
+          />
+           <small class="text-red-500" *ngIf="userForm.get('fullName')?.touched 
+                    && userForm.get('userForm')?.invalid">
+              <small *ngIf="userForm.get('userForm')?.errors?.['required']">Full Name is required</small> 
+          </small>
+        </div>
+
+        <div class="flex w-full flex-col">
+          <label class="flex" for="email"
+            >Email<span
+              class="block text-sm font-medium text-slate-700 after:ml-0.5 after:text-red-500 after:content-['*']"
+            ></span
+          ></label>
+          <input
+            formControlName="email"
+            class="w-full border px-4 py-2 lg:w-1/2"
+            type="email"
+            placeholder="John@example.com"
+          />
+             <small class="text-red-500" 
+                *ngIf="userForm.get('email')?.touched 
+                && userForm.get('email')?.invalid">
+                <span *ngIf="userForm.get('email')?.errors?.['required']">
+                    Email is required.</span>
+                  <span *ngIf="userForm.get('email')?.errors?.['email']">Enter a valid email address.</span>
+            </small>
+        </div>
+        <div class="flex w-full flex-col">
+          <label class="flex" for="username">
+            Username
+            <span
+              class="block text-sm font-medium text-slate-700 after:ml-0.5 after:text-red-500 after:content-['*']"
+            ></span>
+          </label>
+          <input
+            formControlName="username"
+            class="w-full border px-4 py-2 lg:w-1/2"
+            type="text"
+          />
+            <small class="text-red-500" 
+                *ngIf="userForm.get('username')?.touched 
+                && userForm.get('username')?.invalid">
+                <span *ngIf="userForm.get('username')?.errors?.['required']">
+                    Username is required.</span>
+            </small>
+        </div>
+        <div class="flex w-full flex-col">
+          <label class="flex" for="phone">
+            Phone
+            <span
+              class="block text-sm font-medium text-slate-700 after:ml-0.5 after:text-red-500 after:content-['*']"
+            ></span>
+          </label>
+          <input
+            formControlName="phone"
+            class="w-full border px-4 py-2 lg:w-1/2"
+            type="text"
+          />
+            <small class="text-red-500" 
+                *ngIf="userForm.get('phone')?.touched 
+                && userForm.get('phone')?.invalid">
+                <span *ngIf="userForm.get('phone')?.errors?.['required']">
+                    Phone is required.</span>
+                     <span *ngIf="userForm.get('phone')?.errors?.['pattern']">Enter a valid 10-digit phone number.</span>
+    
+            </small>
+        </div>
+        <button
+          type="submit"
+          class="mt-4 w-40 bg-violet-900 px-4 py-2 text-white"
+        >
+          Save changes
+        </button>
+      </form>
+    </div>
+  </section>
+  <!-- /form  -->
+</section>
